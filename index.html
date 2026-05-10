@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shefa &amp; Siam · Save the Date</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f4ede1;
+    --cream-deep: #ebe2d2;
+    --ink: #2a2520;
+    --ink-soft: #4a4036;
+    --bronze: #8b6f47;
+    --cocoa: #6b4423;
+    --whisper: rgba(42, 37, 32, 0.55);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle paper grain over everything */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(139, 111, 71, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(107, 68, 35, 0.025) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* -------------------- HERO EXPERIENCE (scroll-driven) -------------------- */
+  .hero-experience {
+    height: 320vh;
+    position: relative;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .sticky-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  /* Hero frame — the photo + names. Scales down on scroll. */
+  .hero-frame {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+    background-color: var(--ink);
+  }
+
+  .hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg,
+        rgba(42, 37, 32, 0.35) 0%,
+        rgba(42, 37, 32, 0.15) 30%,
+        rgba(42, 37, 32, 0.25) 65%,
+        rgba(42, 37, 32, 0.65) 100%);
+  }
+
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 4rem;
+    color: var(--cream);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    opacity: 0;
+    animation: fadeIn 1.4s ease 0.3s forwards;
+  }
+
+  .hero-mark {
+    font-family: 'Italiana', serif;
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+  }
+
+  .hero-date-top {
+    text-align: right;
+    font-family: 'Italiana', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  .hero-center {
+    text-align: center;
+    position: relative;
+    z-index: 6;
+  }
+
+  .hero-and {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 2rem;
+    color: var(--cream);
+    margin: 0.4rem 0;
+    opacity: 0;
+    animation: dropIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 2.7s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Italiana', serif;
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+  }
+
+  .hero-name span {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .hero-name.first span { animation-delay: 2.1s; }
+  .hero-name.second span { animation-delay: 3.0s; }
+
+  @keyframes rise {
+    to { transform: translateY(0); }
+  }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1.4s ease 3.8s forwards;
+  }
+
+  .hero-tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    max-width: 336px;
+    text-align: center;
+    color: rgba(244, 237, 225, 0.85);
+  }
+
+  .scroll-indicator {
+    text-align: center;
+    font-family: 'Italiana', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 50px;
+    background: var(--cream);
+    margin: 1rem auto 0;
+    transform-origin: top;
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* -------------------- BLOOMING FLOWERS -------------------- */
+  .bloom {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    z-index: 5;
+    pointer-events: none;
+    color: var(--cream);
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.45));
+  }
+
+  .bloom.tl { top: -50px; left: -50px; }
+  .bloom.tr { top: -50px; right: -50px; transform: scaleX(-1); }
+  .bloom.bl { bottom: -50px; left: -50px; transform: scaleY(-1); }
+  .bloom.br { bottom: -50px; right: -50px; transform: scale(-1, -1); }
+
+  .bloom .petal {
+    transform-origin: 100px 100px;
+    transform: scale(0) rotate(var(--r, 0deg));
+    fill: currentColor;
+    opacity: 0;
+    animation: petalBloom 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--start, 0s) + var(--d, 0) * 0.04s);
+  }
+
+  .bloom .flower-center {
+    transform-origin: 100px 100px;
+    transform: scale(0);
+    fill: var(--cocoa);
+    opacity: 0;
+    animation: centerPop 0.5s ease-out forwards;
+    animation-delay: calc(var(--start, 0s) + 0.85s);
+  }
+
+  @keyframes petalBloom {
+    to { transform: scale(1) rotate(var(--r, 0deg)); opacity: var(--o, 1); }
+  }
+
+  @keyframes centerPop {
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* -------------------- PHOTO ROLLS -------------------- */
+  .photo-roll {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 24vw;
+    overflow: hidden;
+    z-index: 6;
+    will-change: transform;
+  }
+
+  .photo-roll.left { left: 0; transform: translateX(-100%); }
+  .photo-roll.right { right: 0; transform: translateX(100%); }
+
+  .photo-roll-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    will-change: transform;
+  }
+
+  .roll-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--cream-deep);
+    box-shadow: 0 8px 28px rgba(42, 37, 32, 0.25);
+    border: 6px solid #fdfaf3;
+  }
+
+  /* -------------------- REVEAL ANIMATIONS -------------------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.delay-1 { transition-delay: 0.15s; }
+  .reveal.delay-2 { transition-delay: 0.3s; }
+  .reveal.delay-3 { transition-delay: 0.45s; }
+
+  /* -------------------- SECTIONS -------------------- */
+  section {
+    padding: 8rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: 'Italiana', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  .display {
+    font-family: 'Italiana', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .display em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* Intro section */
+  .intro {
+    text-align: center;
+    padding-top: 10rem;
+  }
+
+  .intro .ornament {
+    width: 120px;
+    height: 1px;
+    background: var(--bronze);
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+  .intro .ornament::before {
+    content: '◆';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--cream);
+    padding: 0 12px;
+    color: var(--bronze);
+    font-size: 0.7rem;
+  }
+
+  .intro p {
+    max-width: 540px;
+    margin: 2.5rem auto 0;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* The Date — big block */
+  .date-block {
+    text-align: center;
+    background: var(--cream-deep);
+    padding: 7rem 2rem;
+    margin: 3rem 0;
+  }
+
+  .date-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .date-cell {
+    text-align: center;
+  }
+
+  .date-cell .label {
+    font-family: 'Italiana', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 0.5rem;
+  }
+
+  .date-cell .value {
+    font-family: 'Italiana', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .date-divider {
+    width: 1px;
+    height: 80px;
+    background: var(--bronze);
+    opacity: 0.4;
+  }
+
+  /* Events */
+  .events {
+    text-align: center;
+  }
+
+  .events-header {
+    margin-bottom: 5rem;
+  }
+
+  .events-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .events-grid .event-card {
+    flex: 0 1 420px;
+  }
+
+  .event-card {
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 1px solid rgba(139, 111, 71, 0.3);
+    background: rgba(255, 255, 255, 0.3);
+    transition: transform 0.6s ease, border-color 0.6s ease;
+  }
+
+  .event-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--bronze);
+  }
+
+  .event-card .icon {
+    font-family: 'Italiana', serif;
+    font-size: 1.8rem;
+    color: var(--bronze);
+    margin-bottom: 1rem;
+  }
+
+  .event-card h3 {
+    font-family: 'Italiana', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .event-card .when {
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--cocoa);
+    margin-bottom: 1rem;
+  }
+
+  .event-card .where {
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .event-card .where strong {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--ink);
+  }
+
+  /* Countdown */
+  .countdown-section {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 7rem 2rem;
+  }
+
+  .countdown-section .eyebrow {
+    color: var(--cream-deep);
+    opacity: 0.7;
+  }
+
+  .countdown-section h2 {
+    color: var(--cream);
+    margin-bottom: 4rem;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .count-cell {
+    min-width: 100px;
+  }
+
+  .count-cell .num {
+    font-family: 'Italiana', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1;
+    display: block;
+  }
+
+  .count-cell .lbl {
+    font-family: 'Italiana', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(244, 237, 225, 0.6);
+    margin-top: 0.6rem;
+    display: block;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid rgba(139, 111, 71, 0.2);
+  }
+
+  footer .ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 3rem;
+    color: var(--bronze);
+    margin-bottom: 1rem;
+  }
+
+  footer p {
+    font-family: 'Italiana', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--whisper);
+  }
+
+  /* -------------------- RESPONSIVE -------------------- */
+  @media (max-width: 768px) {
+    .hero-content { padding: 2rem 1.5rem; }
+    .hero-bottom { flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+    .hero-tagline { max-width: 100%; font-size: 0.95rem; }
+    .hero-experience { height: 260vh; }
+    .bloom { width: 130px; height: 130px; }
+    .bloom.tl, .bloom.tr { top: -20px; }
+    .bloom.bl, .bloom.br { bottom: -20px; }
+    .bloom.tl, .bloom.bl { left: -20px; }
+    .bloom.tr, .bloom.br { right: -20px; }
+    .photo-roll { width: 28vw; }
+    .photo-roll-inner { gap: 0.6rem; padding: 0.6rem; }
+    .roll-photo { border-width: 3px; }
+    section { padding: 5rem 1.5rem; }
+    .events-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .date-grid { gap: 1.5rem; }
+    .date-divider { display: none; }
+    .countdown { gap: 1.5rem; }
+    .count-cell { min-width: 70px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ========== HERO EXPERIENCE ========== -->
+<section class="hero-experience">
+  <div class="sticky-stage">
+
+    <!-- The hero frame: photo + names + bloom flowers, scales down on scroll -->
+    <div class="hero-frame">
+      <div class="hero-image"></div>
+
+      <!-- BLOOMING FLOWERS (corner ornaments) -->
+      <svg class="bloom tl" style="--start: 0.2s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:3;--r:216deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:4;--r:288deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:5;--r:36deg;--o:0.85"  cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:6;--r:108deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:7;--r:180deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:8;--r:252deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:9;--r:324deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:10;--r:0deg;--o:1"   cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:11;--r:72deg;--o:1"  cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:12;--r:144deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:13;--r:216deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:14;--r:288deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <circle class="flower-center" cx="100" cy="100" r="10"/>
+      </svg>
+
+      <svg class="bloom tr" style="--start: 0.4s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:3;--r:216deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:4;--r:288deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:5;--r:36deg;--o:0.85"  cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:6;--r:108deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:7;--r:180deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:8;--r:252deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:9;--r:324deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:10;--r:0deg;--o:1"   cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:11;--r:72deg;--o:1"  cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:12;--r:144deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:13;--r:216deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:14;--r:288deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <circle class="flower-center" cx="100" cy="100" r="10"/>
+      </svg>
+
+      <svg class="bloom bl" style="--start: 0.6s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:3;--r:216deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:4;--r:288deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:5;--r:36deg;--o:0.85"  cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:6;--r:108deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:7;--r:180deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:8;--r:252deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:9;--r:324deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:10;--r:0deg;--o:1"   cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:11;--r:72deg;--o:1"  cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:12;--r:144deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:13;--r:216deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:14;--r:288deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <circle class="flower-center" cx="100" cy="100" r="10"/>
+      </svg>
+
+      <svg class="bloom br" style="--start: 0.8s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:3;--r:216deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:4;--r:288deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
+        <ellipse class="petal" style="--d:5;--r:36deg;--o:0.85"  cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:6;--r:108deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:7;--r:180deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:8;--r:252deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:9;--r:324deg;--o:0.85" cx="100" cy="68" rx="20" ry="38"/>
+        <ellipse class="petal" style="--d:10;--r:0deg;--o:1"   cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:11;--r:72deg;--o:1"  cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:12;--r:144deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:13;--r:216deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <ellipse class="petal" style="--d:14;--r:288deg;--o:1" cx="100" cy="82" rx="13" ry="22"/>
+        <circle class="flower-center" cx="100" cy="100" r="10"/>
+      </svg>
+
+      <div class="hero-content">
+        <div class="hero-top">
+          <div class="hero-mark">A &amp; N</div>
+          
+        </div>
+
+        <div class="hero-center">
+          <h1 class="hero-name first"><span>Shefa</span></h1>
+          <div class="hero-and">&amp;</div>
+          <h1 class="hero-name second"><span>Siam</span></h1>
+        </div>
+        <div class="hero-bottom">
+          <p class="hero-tagline">It is He who created you from one soul and created from it its mate that he might dwell in security with her</p>
+          <div class="scroll-indicator">Scroll</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEFT photo roll: scrolls UP as user scrolls -->
+    <div class="photo-roll left">
+      <div class="photo-roll-inner">
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=70')"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT photo roll: scrolls DOWN as user scrolls -->
+    <div class="photo-roll right">
+      <div class="photo-roll-inner">
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=70')"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== INTRO ========== -->
+<section class="intro">
+  <div class="container">
+    <span class="eyebrow reveal">With joy in our hearts</span>
+    <div class="ornament reveal delay-1"></div>
+    <h2 class="display reveal delay-1">
+      We're <em>getting</em><br>married.
+    </h2>
+    <p class="reveal delay-2">
+      Together with our families, we invite you to share in the celebration of our wedding — a day of love, laughter, and the beginning of forever.
+    </p>
+  </div>
+</section>
+
+<!-- ========== THE DATE ========== -->
+<section class="date-block">
+  <span class="eyebrow reveal">Mark Your Calendar</span>
+  <div class="date-grid">
+    <div class="date-cell reveal">
+      <div class="label">Day</div>
+      <div class="value">Mon</div>
+    </div>
+    <div class="date-divider reveal delay-1"></div>
+    <div class="date-cell reveal delay-1">
+      <div class="label">Date</div>
+      <div class="value">15</div>
+    </div>
+    <div class="date-divider reveal delay-2"></div>
+    <div class="date-cell reveal delay-2">
+      <div class="label">Month</div>
+      <div class="value">Feb</div>
+    </div>
+    <div class="date-divider reveal delay-3"></div>
+    <div class="date-cell reveal delay-3">
+      <div class="label">Year</div>
+      <div class="value">2027</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EVENTS ========== -->
+<section>
+  <div class="container events">
+    <div class="events-header">
+      <span class="eyebrow reveal">The Celebration</span>
+      <h2 class="display reveal delay-1">A <em>day</em><br>of joy.</h2>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="icon">❦</div>
+        <h3>The Reception</h3>
+        <p class="when">Monday, 15 February 2027<br>4:00 in the afternoon</p>
+        <p class="where">
+          <strong>Jonaki Convention Hall</strong>
+          69/1 Naya Paltan, Dhaka
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COUNTDOWN ========== -->
+<section class="countdown-section">
+  <span class="eyebrow reveal">Counting the Days</span>
+  <h2 class="display reveal delay-1" style="color: var(--cream);">Until <em>forever</em>.</h2>
+
+  <div class="countdown reveal delay-2">
+    <div class="count-cell">
+      <span class="num" id="days">—</span>
+      <span class="lbl">Days</span>
+    </div>
+    <div class="count-cell">
+      <span class="num" id="hours">—</span>
+      <span class="lbl">Hours</span>
+    </div>
+    <div class="count-cell">
+      <span class="num" id="minutes">—</span>
+      <span class="lbl">Minutes</span>
+    </div>
+    <div class="count-cell">
+      <span class="num" id="seconds">—</span>
+      <span class="lbl">Seconds</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="ampersand">&amp;</div>
+  <p>Shefa &amp; Siam · 15 Feb 2027</p>
+</footer>
+
+<script>
+  // Scroll-triggered reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Countdown
+  const weddingDate = new Date('2027-02-15T19:00:00').getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = weddingDate - now;
+
+    if (diff < 0) {
+      document.getElementById('days').textContent = '0';
+      document.getElementById('hours').textContent = '0';
+      document.getElementById('minutes').textContent = '0';
+      document.getElementById('seconds').textContent = '0';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // -------- Hero Experience: scroll-driven zoom + photo rolls --------
+  const stage = document.querySelector('.hero-experience');
+  const frame = document.querySelector('.hero-frame');
+  const leftRoll = document.querySelector('.photo-roll.left');
+  const rightRoll = document.querySelector('.photo-roll.right');
+  const leftInner = leftRoll.querySelector('.photo-roll-inner');
+  const rightInner = rightRoll.querySelector('.photo-roll-inner');
+
+  let leftOverflow = 0;
+  let rightOverflow = 0;
+
+  function measure() {
+    leftOverflow = Math.max(0, leftInner.offsetHeight - window.innerHeight);
+    rightOverflow = Math.max(0, rightInner.offsetHeight - window.innerHeight);
+  }
+
+  let ticking = false;
+  function updateHero() {
+    ticking = false;
+    const rect = stage.getBoundingClientRect();
+    const total = stage.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    const progress = Math.max(0, Math.min(1, -rect.top / total));
+
+    // Phase 1 (0 → 0.4): zoom out the hero photo + slide rolls in from sides
+    // Phase 2 (0.4 → 1): photo rolls scroll in opposite directions
+    const zoomPhase = Math.max(0, Math.min(1, progress / 0.4));
+    const rollPhase = Math.max(0, Math.min(1, (progress - 0.35) / 0.65));
+
+    // Hero scales from 1.0 down to 0.55
+    const scale = 1 - zoomPhase * 0.45;
+    frame.style.transform = `scale(${scale})`;
+
+    // Side rolls slide in from off-screen
+    leftRoll.style.transform = `translateX(${-100 * (1 - zoomPhase)}%)`;
+    rightRoll.style.transform = `translateX(${100 * (1 - zoomPhase)}%)`;
+
+    // Counter-rotating film strips: left rolls UP, right rolls DOWN
+    leftInner.style.transform = `translateY(${-rollPhase * leftOverflow}px)`;
+    rightInner.style.transform = `translateY(${-(1 - rollPhase) * rightOverflow}px)`;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(updateHero);
+      ticking = true;
+    }
+  }
+
+  // Re-measure once images load (photo rolls need accurate heights)
+  window.addEventListener('load', () => { measure(); updateHero(); });
+  window.addEventListener('resize', () => { measure(); updateHero(); });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  measure();
+  updateHero();
+</script>
+</body>
+</html>
