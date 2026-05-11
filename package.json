@@ -1,0 +1,13 @@
+{
+  "name": "shefa-weds-siam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Save the date — static site for Shefa & Siam's wedding.",
+  "type": "module",
+  "scripts": {
+    "optimize": "node scripts/optimize-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
+}

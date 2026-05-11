@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Italiana&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/hero.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="images/hero.jpg" type="image/jpeg">
 <style>
   :root {
     --cream: #f4ede1;
@@ -85,11 +87,22 @@
 
   .hero-image {
     position: absolute;
-    inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80');
+    inset: -12px;
+    background-image: url('images/hero.jpg');
+    background-image: -webkit-image-set(
+      url('images/hero.webp') type('image/webp'),
+      url('images/hero.jpg') type('image/jpeg')
+    );
+    background-image: image-set(
+      url('images/hero.webp') type('image/webp'),
+      url('images/hero.jpg') type('image/jpeg')
+    );
     background-size: cover;
     background-position: center;
     background-color: var(--ink);
+    filter: blur(4px);
+    opacity: 0;
+    animation: heroBloom 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
   }
 
   .hero-image::after {
@@ -149,7 +162,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-weight: 300;
-    font-size: 2rem;
+    font-size: 4rem;
     color: var(--cream);
     margin: 0.4rem 0;
     opacity: 0;
@@ -157,11 +170,11 @@
   }
 
   .hero-name {
-    font-family: 'Italiana', serif;
-    font-size: clamp(3.5rem, 10vw, 9rem);
-    line-height: 0.95;
-    font-weight: 400;
-    letter-spacing: 0.02em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5.5rem, 15vw, 14rem);
+    line-height: 0.92;
+    font-weight: 600;
+    letter-spacing: 0.03em;
     overflow: hidden;
   }
 
@@ -185,6 +198,11 @@
 
   @keyframes fadeIn {
     to { opacity: 1; }
+  }
+
+  @keyframes heroBloom {
+    from { opacity: 0; transform: scale(1.04); }
+    to   { opacity: 1; transform: scale(1); }
   }
 
   .hero-bottom {
@@ -299,11 +317,19 @@
   .roll-photo {
     width: 100%;
     aspect-ratio: 3/4;
-    background-size: cover;
-    background-position: center;
     background-color: var(--cream-deep);
     box-shadow: 0 8px 28px rgba(42, 37, 32, 0.25);
     border: 6px solid #fdfaf3;
+    display: block;
+    overflow: hidden;
+  }
+
+  .roll-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   /* -------------------- REVEAL ANIMATIONS -------------------- */
@@ -703,26 +729,68 @@
     <!-- LEFT photo roll: scrolls UP as user scrolls -->
     <div class="photo-roll left">
       <div class="photo-roll-inner">
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=70')"></div>
+        <picture class="roll-photo">
+          <source srcset="images/photo-01.webp" type="image/webp">
+          <img src="images/photo-01.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-02.webp" type="image/webp">
+          <img src="images/photo-02.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-03.webp" type="image/webp">
+          <img src="images/photo-03.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-04.webp" type="image/webp">
+          <img src="images/photo-04.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-05.webp" type="image/webp">
+          <img src="images/photo-05.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-06.webp" type="image/webp">
+          <img src="images/photo-06.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-07.webp" type="image/webp">
+          <img src="images/photo-07.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
       </div>
     </div>
 
-    <!-- RIGHT photo roll: scrolls DOWN as user scrolls -->
+    <!-- RIGHT photo roll: scrolls DOWN as user scrolls (reversed order) -->
     <div class="photo-roll right">
       <div class="photo-roll-inner">
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=70')"></div>
-        <div class="roll-photo" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=70')"></div>
+        <picture class="roll-photo">
+          <source srcset="images/photo-07.webp" type="image/webp">
+          <img src="images/photo-07.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-06.webp" type="image/webp">
+          <img src="images/photo-06.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-05.webp" type="image/webp">
+          <img src="images/photo-05.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-04.webp" type="image/webp">
+          <img src="images/photo-04.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-03.webp" type="image/webp">
+          <img src="images/photo-03.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-02.webp" type="image/webp">
+          <img src="images/photo-02.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture class="roll-photo">
+          <source srcset="images/photo-01.webp" type="image/webp">
+          <img src="images/photo-01.jpg" alt="" loading="lazy" decoding="async">
+        </picture>
       </div>
     </div>
 
