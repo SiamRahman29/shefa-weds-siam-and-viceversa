@@ -360,10 +360,10 @@
 
   .eyebrow {
     font-family: 'Italiana', serif;
-    font-size: 0.8rem;
+    font-size: 1.568rem;
     letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: var(--bronze);
+    color: var(--cocoa);
     margin-bottom: 2rem;
     display: block;
   }
@@ -388,6 +388,10 @@
     padding-top: 10rem;
   }
 
+  .intro h2.display {
+    font-size: clamp(5.488rem, 11.76vw, 9.8rem);
+  }
+
   .intro .ornament {
     width: 120px;
     height: 1px;
@@ -408,11 +412,11 @@
   }
 
   .intro p {
-    max-width: 540px;
+    max-width: 720px;
     margin: 2.5rem auto 0;
-    font-size: 1.25rem;
-    line-height: 1.9;
-    color: var(--ink-soft);
+    font-size: 2.45rem;
+    line-height: 1.7;
+    color: var(--ink);
     font-style: italic;
   }
 
@@ -469,16 +473,15 @@
   }
 
   .events-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
   .events-grid .event-card {
-    flex: 0 1 420px;
+    flex: unset;
   }
 
   .event-card {
@@ -537,8 +540,8 @@
   }
 
   .countdown-section .eyebrow {
-    color: var(--cream-deep);
-    opacity: 0.7;
+    color: var(--cream);
+    opacity: 1;
   }
 
   .countdown-section h2 {
@@ -591,10 +594,10 @@
 
   footer p {
     font-family: 'Italiana', serif;
-    font-size: 0.8rem;
+    font-size: 1.568rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--whisper);
+    color: var(--ink-soft);
   }
 
   /* -------------------- RESPONSIVE -------------------- */
@@ -612,7 +615,7 @@
     .photo-roll-inner { gap: 0.6rem; padding: 0.6rem; }
     .roll-photo { border-width: 3px; }
     section { padding: 5rem 1.5rem; }
-    .events-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .events-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .date-grid { gap: 1.5rem; }
     .date-divider { display: none; }
     .countdown { gap: 1.5rem; }
@@ -905,7 +908,7 @@
 <!-- ========== FOOTER ========== -->
 <footer>
   <div class="ampersand">&amp;</div>
-  <p>Shefa &amp; Siam · 15 Feb 2027</p>
+  <p>Shefa &amp; Siam</p>
 </footer>
 
 <script>
@@ -922,7 +925,7 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // Countdown
-  const weddingDate = new Date('2027-02-15T19:00:00').getTime();
+  const weddingDate = new Date('2026-05-30T13:00:00').getTime();
 
   function updateCountdown() {
     const now = Date.now();
