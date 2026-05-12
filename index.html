@@ -73,7 +73,7 @@
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    background: var(--cream);
+    background: var(--ink);
   }
 
   /* Hero frame — the photo + names. Scales down on scroll. */
@@ -102,7 +102,7 @@
     background-color: var(--ink);
     filter: blur(4px);
     opacity: 0;
-    animation: heroBloom 3s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+    animation: heroBloom 5s cubic-bezier(0.16, 1, 0.3, 1) 8.5s forwards;
   }
 
   .hero-image::after {
@@ -133,7 +133,7 @@
     justify-content: space-between;
     align-items: flex-start;
     opacity: 0;
-    animation: fadeIn 1.4s ease 0.3s forwards;
+    animation: fadeIn 2s ease 0.6s forwards;
   }
 
   .hero-mark {
@@ -166,7 +166,7 @@
     color: var(--cream);
     margin: 0.2rem 0;
     opacity: 0;
-    animation: dropIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 2.7s forwards;
+    animation: dropIn 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) 6.1s forwards;
   }
 
   .hero-name {
@@ -181,11 +181,11 @@
   .hero-name span {
     display: inline-block;
     transform: translateY(110%);
-    animation: rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: rise 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  .hero-name.first span { animation-delay: 2.1s; }
-  .hero-name.second span { animation-delay: 3.0s; }
+  .hero-name.first span { animation-delay: 5.1s; }
+  .hero-name.second span { animation-delay: 6.5s; }
 
   @keyframes rise {
     to { transform: translateY(0); }
@@ -211,7 +211,7 @@
     align-items: center;
     gap: 1.5rem;
     opacity: 0;
-    animation: fadeIn 1.4s ease 3.8s forwards;
+    animation: fadeIn 2s ease 7.9s forwards;
   }
 
   .hero-tagline {
@@ -268,8 +268,8 @@
     transform: scale(0) rotate(var(--r, 0deg));
     fill: currentColor;
     opacity: 0;
-    animation: petalBloom 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--start, 0s) + var(--d, 0) * 0.04s);
+    animation: petalBloom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--start, 0s) + var(--d, 0) * 0.09s);
   }
 
   .bloom .flower-center {
@@ -277,8 +277,8 @@
     transform: scale(0);
     fill: var(--cocoa);
     opacity: 0;
-    animation: centerPop 0.5s ease-out forwards;
-    animation-delay: calc(var(--start, 0s) + 0.85s);
+    animation: centerPop 0.9s ease-out forwards;
+    animation-delay: calc(var(--start, 0s) + 1.7s);
   }
 
   @keyframes petalBloom {
@@ -641,7 +641,7 @@
       <div class="hero-image"></div>
 
       <!-- BLOOMING FLOWERS (corner ornaments) -->
-      <svg class="bloom tl" style="--start: 0.2s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <svg class="bloom tl" style="--start: 0.4s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
@@ -660,7 +660,7 @@
         <circle class="flower-center" cx="100" cy="100" r="10"/>
       </svg>
 
-      <svg class="bloom tr" style="--start: 0.4s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <svg class="bloom tr" style="--start: 0.9s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
@@ -679,7 +679,7 @@
         <circle class="flower-center" cx="100" cy="100" r="10"/>
       </svg>
 
-      <svg class="bloom bl" style="--start: 0.6s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <svg class="bloom bl" style="--start: 1.4s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
@@ -698,7 +698,7 @@
         <circle class="flower-center" cx="100" cy="100" r="10"/>
       </svg>
 
-      <svg class="bloom br" style="--start: 0.8s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <svg class="bloom br" style="--start: 1.9s" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <ellipse class="petal" style="--d:0;--r:0deg;--o:0.6"   cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:1;--r:72deg;--o:0.6"  cx="100" cy="50" rx="26" ry="55"/>
         <ellipse class="petal" style="--d:2;--r:144deg;--o:0.6" cx="100" cy="50" rx="26" ry="55"/>
@@ -1012,6 +1012,94 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   measure();
   updateHero();
+</script>
+
+<!-- ========== SOUNDTRACK ========== -->
+<audio id="soundtrack" src="soundtrack.mp3" loop preload="auto"></audio>
+
+<button id="music-btn" aria-label="Toggle music" title="Toggle music">
+  <span id="music-icon">♪</span>
+</button>
+
+<style>
+  #music-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(139, 111, 71, 0.45);
+    background: rgba(244, 237, 225, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--bronze);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, border-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+  #music-btn:hover {
+    background: rgba(244, 237, 225, 1);
+    border-color: var(--bronze);
+    transform: scale(1.08);
+  }
+  #music-btn.playing {
+    border-color: var(--bronze);
+    background: rgba(139, 111, 71, 0.12);
+  }
+</style>
+
+<script>
+  (function () {
+    const audio = document.getElementById('soundtrack');
+    const btn   = document.getElementById('music-btn');
+    const icon  = document.getElementById('music-icon');
+    let   playing = false;
+
+    function startPlay() {
+      audio.play().then(() => {
+        playing = true;
+        icon.textContent = '♪';
+        btn.classList.add('playing');
+        btn.setAttribute('aria-label', 'Pause music');
+      }).catch(() => {});
+    }
+
+    function toggleMusic() {
+      if (playing) {
+        audio.pause();
+        playing = false;
+        icon.textContent = '♩';
+        btn.classList.remove('playing');
+        btn.setAttribute('aria-label', 'Play music');
+      } else {
+        startPlay();
+      }
+    }
+
+    btn.addEventListener('click', toggleMusic);
+
+    // Try autoplay on first user interaction with the page if it hasn't started yet
+    function onFirstInteraction() {
+      if (!playing) startPlay();
+      document.removeEventListener('click', onFirstInteraction);
+      document.removeEventListener('keydown', onFirstInteraction);
+      document.removeEventListener('touchstart', onFirstInteraction);
+    }
+
+    // Also try immediately (works if browser allows autoplay)
+    startPlay();
+
+    // Fall back to first interaction
+    document.addEventListener('click', onFirstInteraction, { once: true });
+    document.addEventListener('keydown', onFirstInteraction, { once: true });
+    document.addEventListener('touchstart', onFirstInteraction, { once: true });
+  })();
 </script>
 </body>
 </html>
