@@ -102,7 +102,7 @@
     background-color: var(--ink);
     filter: blur(4px);
     opacity: 0;
-    animation: heroBloom 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    animation: heroBloom 3s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
   }
 
   .hero-image::after {
@@ -138,7 +138,7 @@
 
   .hero-mark {
     font-family: 'Italiana', serif;
-    font-size: 1rem;
+    font-size: 0.85rem;
     letter-spacing: 0.4em;
     text-transform: uppercase;
   }
@@ -146,7 +146,7 @@
   .hero-date-top {
     text-align: right;
     font-family: 'Italiana', serif;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
     line-height: 1.8;
@@ -162,17 +162,17 @@
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-weight: 300;
-    font-size: 4rem;
+    font-size: 2.75rem;
     color: var(--cream);
-    margin: 0.4rem 0;
+    margin: 0.2rem 0;
     opacity: 0;
     animation: dropIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 2.7s forwards;
   }
 
   .hero-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(5.5rem, 15vw, 14rem);
-    line-height: 0.92;
+    font-size: clamp(3.5rem, 10vw, 8.5rem);
+    line-height: 0.95;
     font-weight: 600;
     letter-spacing: 0.03em;
     overflow: hidden;
@@ -216,9 +216,10 @@
 
   .hero-tagline {
     font-style: italic;
-    font-size: 1.65rem;
-    max-width: 336px;
+    font-size: 1.15rem;
+    max-width: 420px;
     text-align: center;
+    line-height: 1.5;
     color: rgba(244, 237, 225, 0.85);
   }
 
@@ -604,7 +605,7 @@
   @media (max-width: 768px) {
     .hero-content { padding: 2rem 1.5rem; }
     .hero-bottom { flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
-    .hero-tagline { max-width: 100%; font-size: 1.425rem; }
+    .hero-tagline { max-width: 100%; font-size: 1rem; }
     .hero-experience { height: 260vh; }
     .bloom { width: 130px; height: 130px; }
     .bloom.tl, .bloom.tr { top: -20px; }
